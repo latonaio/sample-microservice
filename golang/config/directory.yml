@@ -1,0 +1,12 @@
+deviceName: hera
+microservices:
+  sample-microservice-first:
+    directoryPath: sample-microservice/golang
+    command: go run ./cmd/first.go
+    startup: yes
+    nextService:
+      default:
+        - name: sample-microservice-second
+  sample-microservice-second:
+    directoryPath: sample-microservice/golang
+    command: go run ./cmd/second.go

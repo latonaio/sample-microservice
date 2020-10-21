@@ -1,0 +1,9 @@
+deviceName: hera
+microservices:
+  sample-microservice-first:
+    startup: yes
+    nextService:
+      default:
+        - name: sample-microservice-second
+  sample-microservice-second:
+    command: go run ./cmd/second.go

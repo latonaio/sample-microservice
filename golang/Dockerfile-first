@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1.0.0-experimental
+FROM l4t:latest
+
+# Definition of a Device & Service
+ENV POSITION=Runtime \
+    SERVICE=sample-microservice-first \
+    AION_HOME=/var/lib/aion
+
+# install golang
+ARG ARCH=arm64
+ARG VERSION=1.14.3
+ARG OS=linux
+
+RUN wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz && \
+    tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz && \
+    rm go$VERSION.$OS-$ARCH.tar.gz
+ENV PATH=$PATH:/usr/local/go/bin
+
+# create aion directory
+RUN mkdir ${AION_HOME}
+WORKDIR ${AION_HOME}
+# Setup Directoties
+RUN mkdir -p \
+    $POSITION/$SERVICE
+WORKDIR ${AION_HOME}/$POSITION/$SERVICE/
+
+ADD first .
+CMD ["./first"]
